@@ -1,0 +1,17 @@
+com\example\taskmanagement\TaskManagementApplication.class
+com\example\taskmanagement\controller\NotificationController.class
+com\example\taskmanagement\storage\impl\InMemoryUserStorage.class
+com\example\taskmanagement\storage\TaskStorage.class
+com\example\taskmanagement\storage\impl\InMemoryNotificationStorage.class
+com\example\taskmanagement\controller\TaskController.class
+com\example\taskmanagement\model\TaskStatus.class
+com\example\taskmanagement\storage\UserStorage.class
+com\example\taskmanagement\storage\impl\InMemoryTaskStorage.class
+com\example\taskmanagement\storage\NotificationStorage.class
+com\example\taskmanagement\service\TaskService.class
+com\example\taskmanagement\model\Notification.class
+com\example\taskmanagement\model\Task.class
+com\example\taskmanagement\model\User.class
+com\example\taskmanagement\service\NotificationService.class
+com\example\taskmanagement\controller\UserController.class
+com\example\taskmanagement\service\UserService.class
