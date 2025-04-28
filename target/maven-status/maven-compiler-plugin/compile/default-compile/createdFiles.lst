@@ -11,6 +11,7 @@ com\example\taskmanagement\storage\NotificationStorage.class
 com\example\taskmanagement\service\TaskService.class
 com\example\taskmanagement\model\Notification.class
 com\example\taskmanagement\model\Task.class
+com\example\taskmanagement\repository\TaskRepository.class
 com\example\taskmanagement\model\User.class
 com\example\taskmanagement\service\NotificationService.class
 com\example\taskmanagement\controller\UserController.class

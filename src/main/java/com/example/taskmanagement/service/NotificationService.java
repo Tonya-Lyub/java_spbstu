@@ -1,36 +1,42 @@
 package com.example.taskmanagement.service;
 
 import com.example.taskmanagement.model.Notification;
-import com.example.taskmanagement.storage.NotificationStorage;
+import com.example.taskmanagement.repository.NotificationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class NotificationService {
-    private final NotificationStorage notificationStorage;
+    private final NotificationRepository notificationRepository;
 
-    public NotificationService(NotificationStorage notificationStorage) {
-        this.notificationStorage = notificationStorage;
+    @Autowired
+    public NotificationService(NotificationRepository notificationRepository) {
+        this.notificationRepository = notificationRepository;
     }
 
     public Notification createNotification(Notification notification) {
-        return notificationStorage.save(notification);
+        return notificationRepository.save(notification);
     }
 
     public Optional<Notification> getNotificationById(Long id) {
-        return notificationStorage.findById(id);
+        return notificationRepository.findById(id);
     }
 
     public List<Notification> getAllNotifications() {
-        return notificationStorage.findAll();
+        return notificationRepository.findAll();
     }
 
     public List<Notification> getNotificationsByUserId(Long userId) {
-        return notificationStorage.findByUserId(userId);
+        return notificationRepository.findByUserId(userId);
     }
 
     public List<Notification> getUnreadNotificationsByUserId(Long userId) {
-        return notificationStorage.findUnreadByUserId(userId);
+        return notificationRepository.findUnreadByUserId(userId);
+    }
+
+    public void deleteNotification(Long id) {
+        notificationRepository.deleteById(id);
     }
 } 

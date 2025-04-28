@@ -30,18 +30,16 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Task>> getAllTasks() {
-        return new ResponseEntity<>(taskService.getAllTasks(), HttpStatus.OK);
+    public ResponseEntity<List<Task>> getAllTasks(@RequestParam(required = false) Long userId) {
+        if (userId != null) {
+            return new ResponseEntity<>(taskService.getAllTasks(userId), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Task>> getTasksByUserId(@PathVariable Long userId) {
-        return new ResponseEntity<>(taskService.getTasksByUserId(userId), HttpStatus.OK);
     }
 } 

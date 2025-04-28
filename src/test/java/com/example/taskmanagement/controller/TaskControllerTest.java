@@ -51,12 +51,18 @@ class TaskControllerTest {
     }
 
     @Test
-    void getAllTasks_ShouldReturnAllTasks() {
+    void getAllTasks_ShouldReturnUserTasks() {
         List<Task> tasks = List.of(task);
-        when(taskService.getAllTasks()).thenReturn(tasks);
-        ResponseEntity<List<Task>> response = taskController.getAllTasks();
+        when(taskService.getAllTasks(1L)).thenReturn(tasks);
+        ResponseEntity<List<Task>> response = taskController.getAllTasks(1L);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(tasks, response.getBody());
+    }
+
+    @Test
+    void getAllTasks_ShouldReturnBadRequest() {
+        ResponseEntity<List<Task>> response = taskController.getAllTasks(null);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
     @Test
@@ -64,14 +70,5 @@ class TaskControllerTest {
         ResponseEntity<Void> response = taskController.deleteTask(1L);
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         verify(taskService).deleteTask(1L);
-    }
-
-    @Test
-    void getTasksByUserId_ShouldReturnUserTasks() {
-        List<Task> tasks = List.of(task);
-        when(taskService.getTasksByUserId(1L)).thenReturn(tasks);
-        ResponseEntity<List<Task>> response = taskController.getTasksByUserId(1L);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(tasks, response.getBody());
     }
 } 

@@ -1,36 +1,38 @@
 package com.example.taskmanagement.service;
 
 import com.example.taskmanagement.model.Task;
-import com.example.taskmanagement.storage.TaskStorage;
+import com.example.taskmanagement.repository.TaskRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TaskService {
-    private final TaskStorage taskStorage;
+    private final TaskRepository taskRepository;
 
-    public TaskService(TaskStorage taskStorage) {
-        this.taskStorage = taskStorage;
+    @Autowired
+    public TaskService(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
     }
 
-    public Task createTask(Task task) {
-        return taskStorage.save(task);
+    public List<Task> getAllTasks(Long userId) {
+        return taskRepository.findByUserId(userId);
     }
 
     public Optional<Task> getTaskById(Long id) {
-        return taskStorage.findById(id);
+        return taskRepository.findById(id);
     }
 
-    public List<Task> getAllTasks() {
-        return taskStorage.findAll();
+    public Task createTask(Task task) {
+        return taskRepository.save(task);
+    }
+
+    public Task updateTask(Task task) {
+        return taskRepository.save(task);
     }
 
     public void deleteTask(Long id) {
-        taskStorage.deleteById(id);
-    }
-
-    public List<Task> getTasksByUserId(Long userId) {
-        return taskStorage.findByUserId(userId);
+        taskRepository.deleteById(id);
     }
 } 

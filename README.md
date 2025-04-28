@@ -29,13 +29,13 @@
 
 Для запуска приложения используйте команду:
 
-```bash
+```
 mvn spring-boot:run
 ```
 
 Для запуска с определенным профилем:
 
-```bash
+```
 mvn spring-boot:run -Dspring-boot.run.profiles=postgres
 ```
 
@@ -68,6 +68,6 @@ mvn spring-boot:run -Dspring-boot.run.profiles=postgres
 
 Для запуска тестов используйте команду:
 
-```bash
+```
 mvn test
 ``` 
