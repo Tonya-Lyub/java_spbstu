@@ -1,6 +1,12 @@
 C:\Users\tonya\OneDrive\Рабочий стол\уник\java3\src\test\java\com\example\taskmanagement\storage\impl\InMemoryTaskStorageTest.java
+C:\Users\tonya\OneDrive\Рабочий стол\уник\java3\src\test\java\com\example\taskmanagement\service\UserServiceTest.java
 C:\Users\tonya\OneDrive\Рабочий стол\уник\java3\src\test\java\com\example\taskmanagement\storage\impl\InMemoryUserStorageTest.java
 C:\Users\tonya\OneDrive\Рабочий стол\уник\java3\src\test\java\com\example\taskmanagement\storage\impl\InMemoryNotificationStorageTest.java
+C:\Users\tonya\OneDrive\Рабочий стол\уник\java3\src\test\java\com\example\taskmanagement\service\NotificationServiceTest.java
+C:\Users\tonya\OneDrive\Рабочий стол\уник\java3\src\test\java\com\example\taskmanagement\service\TaskServiceTest.java
 C:\Users\tonya\OneDrive\Рабочий стол\уник\java3\src\test\java\com\example\taskmanagement\controller\TaskControllerTest.java
+C:\Users\tonya\OneDrive\Рабочий стол\уник\java3\src\test\java\com\example\taskmanagement\integration\UserIntegrationTest.java
 C:\Users\tonya\OneDrive\Рабочий стол\уник\java3\src\test\java\com\example\taskmanagement\controller\NotificationControllerTest.java
 C:\Users\tonya\OneDrive\Рабочий стол\уник\java3\src\test\java\com\example\taskmanagement\controller\UserControllerTest.java
+C:\Users\tonya\OneDrive\Рабочий стол\уник\java3\src\test\java\com\example\taskmanagement\integration\TaskIntegrationTest.java
+C:\Users\tonya\OneDrive\Рабочий стол\уник\java3\src\test\java\com\example\taskmanagement\integration\NotificationIntegrationTest.java
