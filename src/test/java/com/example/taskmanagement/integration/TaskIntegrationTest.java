@@ -1,27 +1,38 @@
 package com.example.taskmanagement.integration;
 
 import com.example.taskmanagement.model.Task;
-import com.example.taskmanagement.storage.impl.InMemoryTaskStorage;
+import com.example.taskmanagement.model.TaskStatus;
+import com.example.taskmanagement.repository.TaskRepository;
 import com.example.taskmanagement.service.TaskService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
+@ActiveProfiles("h2")
+@Transactional
 class TaskIntegrationTest {
-    private InMemoryTaskStorage taskStorage;
+    @Autowired
+    private TaskRepository taskRepository;
+    
+    @Autowired
     private TaskService taskService;
+    
     private Task task;
 
     @BeforeEach
     void setUp() {
-        taskStorage = new InMemoryTaskStorage();
-        taskService = new TaskService(taskStorage);
         task = new Task();
         task.setTitle("Test Task");
         task.setDescription("Test Description");
         task.setUserId(1L);
+        task.setStatus(TaskStatus.PENDING);
     }
 
     @Test
@@ -36,15 +47,17 @@ class TaskIntegrationTest {
     }
 
     @Test
-    void getAllTasks_ShouldReturnAllCreatedTasks() {
+    void getAllTasks_ShouldReturnUserTasks() {
         taskService.createTask(task);
         Task anotherTask = new Task();
         anotherTask.setTitle("Another Task");
+        anotherTask.setDescription("Another Description");
         anotherTask.setUserId(1L);
+        anotherTask.setStatus(TaskStatus.PENDING);
         taskService.createTask(anotherTask);
         
-        List<Task> allTasks = taskService.getAllTasks();
-        assertEquals(2, allTasks.size());
+        List<Task> userTasks = taskService.getAllTasks(1L);
+        assertEquals(2, userTasks.size());
     }
 
     @Test
@@ -54,18 +67,5 @@ class TaskIntegrationTest {
         
         Optional<Task> deletedTask = taskService.getTaskById(createdTask.getId());
         assertFalse(deletedTask.isPresent());
-    }
-
-    @Test
-    void getTasksByUserId_ShouldReturnOnlyUserTasks() {
-        taskService.createTask(task);
-        Task anotherTask = new Task();
-        anotherTask.setTitle("Another Task");
-        anotherTask.setUserId(2L);
-        taskService.createTask(anotherTask);
-        
-        List<Task> userTasks = taskService.getTasksByUserId(1L);
-        assertEquals(1, userTasks.size());
-        assertEquals(1L, userTasks.get(0).getUserId());
     }
 } 

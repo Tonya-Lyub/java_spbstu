@@ -1,7 +1,7 @@
 package com.example.taskmanagement.service;
 
 import com.example.taskmanagement.model.Task;
-import com.example.taskmanagement.storage.TaskStorage;
+import com.example.taskmanagement.repository.TaskRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class TaskServiceTest {
     @Mock
-    private TaskStorage taskStorage;
+    private TaskRepository taskRepository;
     
     @InjectMocks
     private TaskService taskService;
@@ -33,18 +33,18 @@ class TaskServiceTest {
     }
 
     @Test
-    void createTask_ShouldCallStorageAndReturnTask() {
-        when(taskStorage.save(any(Task.class))).thenReturn(task);
+    void createTask_ShouldCallRepositoryAndReturnTask() {
+        when(taskRepository.save(any(Task.class))).thenReturn(task);
         
         Task result = taskService.createTask(task);
         
-        verify(taskStorage).save(task);
+        verify(taskRepository).save(task);
         assertEquals(task, result);
     }
 
     @Test
     void getTaskById_ShouldReturnTaskWhenExists() {
-        when(taskStorage.findById(1L)).thenReturn(Optional.of(task));
+        when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
         
         Optional<Task> result = taskService.getTaskById(1L);
         
@@ -54,7 +54,7 @@ class TaskServiceTest {
 
     @Test
     void getTaskById_ShouldReturnEmptyWhenNotExists() {
-        when(taskStorage.findById(1L)).thenReturn(Optional.empty());
+        when(taskRepository.findById(1L)).thenReturn(Optional.empty());
         
         Optional<Task> result = taskService.getTaskById(1L);
         
@@ -62,29 +62,19 @@ class TaskServiceTest {
     }
 
     @Test
-    void getAllTasks_ShouldReturnAllTasks() {
+    void getAllTasks_ShouldReturnUserTasks() {
         List<Task> tasks = List.of(task);
-        when(taskStorage.findAll()).thenReturn(tasks);
+        when(taskRepository.findByUserId(1L)).thenReturn(tasks);
         
-        List<Task> result = taskService.getAllTasks();
+        List<Task> result = taskService.getAllTasks(1L);
         
         assertEquals(tasks, result);
     }
 
     @Test
-    void deleteTask_ShouldCallStorage() {
+    void deleteTask_ShouldCallRepository() {
         taskService.deleteTask(1L);
         
-        verify(taskStorage).deleteById(1L);
-    }
-
-    @Test
-    void getTasksByUserId_ShouldReturnUserTasks() {
-        List<Task> tasks = List.of(task);
-        when(taskStorage.findByUserId(1L)).thenReturn(tasks);
-        
-        List<Task> result = taskService.getTasksByUserId(1L);
-        
-        assertEquals(tasks, result);
+        verify(taskRepository).deleteById(1L);
     }
 } 
